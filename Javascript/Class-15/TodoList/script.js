@@ -48,6 +48,14 @@ function initializeApp() {
 
 initializeApp();
 
+/*
+1. State (todos) is the single source of truth.
+2. UI is derived from state instead of being manually maintained.
+3. Adding features (delete, edit, filter, complete) becomes much easier.
+4. Bugs caused by state and DOM getting out of sync are reduced.
+5. It follows the same architectural pattern used by modern frameworks like React, Vue, and Svelte.
+*/
+
 
 
 
