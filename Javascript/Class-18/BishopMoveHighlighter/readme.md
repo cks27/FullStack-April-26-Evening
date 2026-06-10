@@ -35,7 +35,7 @@ If the user clicks on cell `(3,3)`, the following cells should be highlighted:
 
 ## Constraints
 
-* Board size is fixed at **8 × 8**.
+* Board size can change - N.
 * The bishop can move only diagonally.
 * All valid diagonal cells up to the board boundary must be highlighted.
 
