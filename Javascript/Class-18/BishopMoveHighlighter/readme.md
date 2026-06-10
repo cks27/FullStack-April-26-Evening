@@ -10,7 +10,7 @@ A bishop can move diagonally in any direction until it reaches the edge of the b
 
 ## Requirements
 
-* Create an **8 × 8** chessboard dynamically using JavaScript.
+* Create an **N × N** chessboard dynamically using JavaScript.
 * Use alternating black and white colors to represent the board.
 * When a user clicks on a cell:
 
