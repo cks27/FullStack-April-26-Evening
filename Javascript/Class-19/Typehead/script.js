@@ -5,7 +5,7 @@ function render(products, query) {
     resultsSection.innerHTML = '';
 
     // when products array is empty.
-    if (products.length===0 && query.length!==0) {
+    if (products.length === 0 && query.length !== 0) {
         const p = document.createElement('p');
         p.innerText = 'No results found';
         resultsSection.append(p);
@@ -28,14 +28,39 @@ function render(products, query) {
     }
 }
 
+let controller = null;
+
+// controller = c3
+
+// fetch("s", c1) ❌
+// fetch("sa", c2) ❌
+// fetch("sam", c3)
 async function fetchProducts(query) {
-    const res = await fetch(`https://dummyjson.com/products/search?q=${query}`);
-    const data = await res.json();
-    return data;
+    if (controller) {
+        controller.abort();
+    }
+    controller = new AbortController();
+    try {
+        const res = await fetch(`https://dummyjson.com/products/search?q=${query}`, {
+            signal: controller.signal
+        });
+        const data = await res.json();
+        console.log(`data for ${query}`, data);
+        return data;
+    }
+    catch (err) {
+        if (err.name !== 'AbortError') {
+            console.log(err);
+        }
+    }
 }
 
 async function searchProducts(query) {
     const data = await fetchProducts(query);
+    if (!data) {
+        console.log('No data fetched');
+        return;
+    }
     render(data.products, query);
 }
 
