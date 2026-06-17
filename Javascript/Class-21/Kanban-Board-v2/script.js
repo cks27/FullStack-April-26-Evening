@@ -1,12 +1,14 @@
 const todoTaskContainer = document.querySelector('.todo-tasks');
 const inprogressTaskContainer = document.querySelector('.inprogress-tasks');
 const doneTaskContainer = document.querySelector('.done-tasks');
-const form = document.querySelector('form');
+const addTaskForm = document.querySelector('.add-task-modal-content form');
 const addTaskBtn = document.querySelector('#add-task-btn');
 const modalContainer = document.querySelector('.modal-container');
 const closeModalBtn = document.querySelector('#close-modal-btn');
 const taskBoard = document.querySelector('.task-board');
 const toolBox = document.querySelector('.tool-box');
+const editModal = document.querySelector('.edit-modal');
+const editModalContainer = document.querySelector('.edit-modal-container-content')
 
 // https://stackoverflow.com/questions/105034/how-do-i-create-a-guid-uuid
 function uuid() {
@@ -14,6 +16,9 @@ function uuid() {
     (+c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> +c / 4).toString(16)
   );
 }
+
+const allStatus = ['todo', 'inprogress', 'done'];
+const priorities = ['pink', 'green', 'blue', 'black', 'grey'];
 
 
 // status = Todo | InProgress | Done
@@ -65,7 +70,8 @@ function createTaskUI(task) {
         <p>${task.desc}</p>
         <p>${task.status}</p>
         <p>${task.priority }</p>
-        ${task.locked ? '<i class="bi bi-lock"></i>': '<i class="bi bi-unlock"></i>'}
+        ${task.locked ? '<i class="bi bi-lock"></i>' : '<i class="bi bi-unlock"></i>'}
+        ${task.locked === false ? '<i class="bi bi-pencil-square"></i>': ''}
         <i class="bi bi-trash"></i>
     </div>`
 }
@@ -131,8 +137,82 @@ function unLockTask(id) {
     renderTasks();
 }
 
-function registerEventListener() {
+function updateTask(id, newDesc, newStatus, newPriority) {
+    const task = tasks.find((t) => t.id === id);
+    if (!task) {
+        throw new Error('id is not valid')
+    }
+
+    task.desc = newDesc;
+    task.status = newStatus;
+    task.priority = newPriority;
+    renderTasks();
+}
+
+function createEditModalUI(task) {
+    const form = document.createElement('form');
+    form.classList.add('edit-modal-form')
+    const textarea = document.createElement('textarea');
+    textarea.value = task.desc;
+
+    // create the dropdown for status
+    const statusDropdown = document.createElement('select');
+    for (let status of allStatus) {
+        const option = document.createElement('option');
+        if (task.status === status) {
+            option.setAttribute('selected', true);
+        }
+        option.innerText = status;
+        statusDropdown.append(option);
+    }
+
+    // create the dropdown of priorities
+    const prioritiesDropdown = document.createElement('select');
+    for (let priority of priorities) {
+        const option = document.createElement('option');
+        if (task.priority === priority) {
+            option.setAttribute('selected', true);
+        }
+        option.innerText = priority;
+        prioritiesDropdown.append(option);
+    }
+
+    form.append(textarea);
+    form.append(statusDropdown);
+    form.append(prioritiesDropdown);
+
+    const savebtn = document.createElement('button');
+    savebtn.innerText = 'Save';
+    form.append(savebtn);
+
+    const cancelEditBtn = document.createElement('button');
+    cancelEditBtn.innerText = 'Cancel Edit';
+    form.append(cancelEditBtn);
+
     form.addEventListener('submit', function (event) {
+        event.preventDefault();
+        const newDesc = form.elements[0].value;
+        const newStatus = form.elements[1].value;
+        const newPriority = form.elements[2].value;
+        updateTask(task.id, newDesc, newStatus, newPriority);
+        editModal.style.display = 'none';
+    })
+
+    editModalContainer.append(form);
+}
+
+function openEditModal(id) {
+    editModal.style.display = 'block';
+    editModalContainer.innerHTML = '';
+    const task = tasks.find((t) => t.id === id);
+    if (!task) {
+        throw new Error('id is not valid')
+    }
+    createEditModalUI(task);
+}
+
+function registerEventListener() {
+    addTaskForm.addEventListener('submit', function (event) {
         event.preventDefault();
         const taskDesc = form.elements[0].value;
         const priorityInp = document.querySelector('.add-task-modal form input:checked');
@@ -175,6 +255,13 @@ function registerEventListener() {
             // if u click of unlock the task should be locked
             const id = event.target.parentElement.getAttribute('data-id');
             lockTask(id)
+            return;
+        }
+
+        if (event.target.nodeName === 'I' && event.target.classList.contains('bi-pencil-square')) {
+            // if u click of unlock the task should be locked
+            const id = event.target.parentElement.getAttribute('data-id');
+            openEditModal(id);
             return;
         }
     });
