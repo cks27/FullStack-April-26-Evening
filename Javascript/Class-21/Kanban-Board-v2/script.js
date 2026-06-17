@@ -203,6 +203,8 @@ function createEditModalUI(task) {
 
 function openEditModal(id) {
     editModal.style.display = 'block';
+
+    // reset the existing form if any
     editModalContainer.innerHTML = '';
     const task = tasks.find((t) => t.id === id);
     if (!task) {
@@ -214,7 +216,7 @@ function openEditModal(id) {
 function registerEventListener() {
     addTaskForm.addEventListener('submit', function (event) {
         event.preventDefault();
-        const taskDesc = form.elements[0].value;
+        const taskDesc = addTaskForm.elements[0].value;
         const priorityInp = document.querySelector('.add-task-modal form input:checked');
 
         const newTask = {
@@ -222,7 +224,8 @@ function registerEventListener() {
             desc: taskDesc,
             status: 'todo',
             priority: priorityInp.value,
-            dateCreated: new Date().toISOString()
+            dateCreated: new Date().toISOString(),
+            locked: true
         }
         addTask(newTask);
         modalContainer.style.display = 'none'
