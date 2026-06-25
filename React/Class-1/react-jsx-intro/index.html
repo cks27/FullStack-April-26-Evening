@@ -16,7 +16,15 @@
 
     <div id="root"></div>
 
-    <script type="text/babel" data-type="module">
+    <script>
+        Babel.registerPresets({
+            react: {
+                presets: [[Babel.availablePresets.react, { runtime: 'classic' }]],
+            },
+        });
+    </script>
+
+    <script type="text/babel">
 
         const root = ReactDOM.createRoot(document.getElementById("root"));
 
@@ -38,10 +46,16 @@
             </figure>
         }
 
-        root.render(<SectionComponentJSX/>, document.getElementById('root'));
+        function App(){
+            return <div>
+                    <Card/>
+                    <SectionComponentJSX/>
+                </div>
+        }
+
+        root.render(<App/>);
     </script>
 
-    <script type="text/babel" src="script.js"></script>
 </body>
 
 </html>
