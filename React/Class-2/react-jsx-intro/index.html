@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script crossorigin src="https://unpkg.com/react@18/umd/react.development.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-sRIl4kxILFvY47J16cr9ZwB07vP4J8+LH7qKQnuqkuIAvNWLzeN8tE5YBujZqJLB" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+    <h1>React JSX Intro</h1>
+
+    <div id="root"></div>
+
+    <script>
+        Babel.registerPresets({
+            react: {
+                presets: [[Babel.availablePresets.react, { runtime: 'classic' }]],
+            },
+        });
+    </script>
+
+    <script type="text/babel">
+
+        const root = ReactDOM.createRoot(document.getElementById("root"));
+
+
+        function SectionComponentJSX() {
+            return <section>
+                <p>This is para 1</p>
+                <p>This is para 2</p>
+                <p>This is para 3</p>
+            </section>
+        }
+
+        function Card() {
+            return <figure>
+                <img src="https://images.unsplash.com/photo-1781591272000-f7f4f0c386b0?w=900&auto=format&fit=crop&q=60&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxmZWF0dXJlZC1waG90b3MtZmVlZHwzfHx8ZW58MHx8fHx8" alt="" />
+                    <figcaption>
+                        <h4>Some Card</h4>
+                    </figcaption>
+            </figure>
+        }
+
+        function App(){
+            const h1 = React.createElement('h1', {}, 'This is the heading');
+            return h1;
+        }
+
+        root.render(<App/>);
+    </script>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
