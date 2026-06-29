@@ -1,16 +1,17 @@
-# React + Vite
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+## Problem Statement 1: Build a simple Counter component where:
 
-Currently, two official plugins are available:
+- Buttons are provided to increment, decrement, and reset the count.
+- The initial count is passed as a prop to the Counter component.
+- The count cannot be decremented below 0.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Problem Statement 2 : Create a User Card component that:
 
-## React Compiler
+- Accepts a user details object (name, email, age, location, picture) as prop.
+- Displays user details in a card format.
+- Conditionally renders "Adult" or "Minor" based on age.
+- Adds a button to toggle email visibility.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the Oxlint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+## Problem Statement 3:  Build a To-Do List where you can:
+- Add tasks using an input field and button.
+- Remove a task when clicking a delete button next to the task.
