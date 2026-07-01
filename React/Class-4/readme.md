@@ -1,0 +1,5 @@
+**Call Hooks at the Top Level**: Hooks should always be called at the top level of your React function components. Do not call Hooks inside loops, conditions, or nested functions. This ensures that hooks are called in the same order each time a component renders, which is necessary for React to correctly preserve the state of hooks between multiple useState and useEffect calls.
+
+**Call Hooks from React Functions**: You can only call Hooks from React function components or from custom hooks. Do not call Hooks from regular JavaScript functions, classes, or any other non-React function.
+
+**Custom Hooks Must Follow the Same Rules as Built-in Hooks**: When you create your own custom hooks, they must also follow the rules of Hooks. Custom hooks should have a name starting with "use" and should encapsulate hook logic. (we will see How to create custom hooks in later classes)

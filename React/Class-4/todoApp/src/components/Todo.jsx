@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FaTrashAlt } from "react-icons/fa";
 
 const Todo = ({todo, deleteTodo}) => {
@@ -6,6 +6,13 @@ const Todo = ({todo, deleteTodo}) => {
   const deleteTodoHandler = () => {
     deleteTodo(todo.id);
   }
+
+  useEffect(() => {
+    console.log('TODO: Inside useEffect with empty dependency array--', todo.task);
+    return () => {
+      console.log('Cleaning up');
+    }
+  }, []);
 
   return (
     <li>
