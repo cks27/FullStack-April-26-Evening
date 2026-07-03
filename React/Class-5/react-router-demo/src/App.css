@@ -1,0 +1,9 @@
+.product{
+    width: 250px;
+    border: 2px solid #ccc;
+    padding: 0.8rem;
+}
+
+.product img{
+    width: 100%;
+}
