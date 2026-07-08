@@ -47,6 +47,23 @@ const MovieDetails = () => {
             })
     }, [id]);
 
+    const addToWatchList = () => {
+        if (!movie) {
+            return;
+        }
+        const movieId = movie.id;
+        const watchlist = JSON.parse(window.localStorage.getItem('watchlist') || '[]');
+        const isAlreadyPresent = watchlist.some((movie) => movie.id === movieId);
+
+        if (isAlreadyPresent) {
+            console.log('Movie already present')
+            return;
+        }
+
+        watchlist.push(movie);
+        window.localStorage.setItem('watchlist', JSON.stringify(watchlist));
+    }
+
     if (isLoading) {
         return (
             <div className='flex flex-col items-center justify-center gap-4 py-16 text-gray-500'>
@@ -147,6 +164,7 @@ const MovieDetails = () => {
                                 Visit Official Site
                             </a>
                         )}
+                        <button onClick={addToWatchList} className='border border-2 rounded-lg p-1 cursor-pointer ms-2'>Add To WatchList</button>
                     </div>
                 </div>
             </section>
