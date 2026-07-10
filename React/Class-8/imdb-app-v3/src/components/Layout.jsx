@@ -1,10 +1,11 @@
 import React, {useContext} from 'react';
 import { Link } from 'react-router';
 import CountContext from '../context/counter-context';
+import WatchListContext from '../context/watch-list';
 
 const Layout = (props) => {
 
-    const { incrementCount } = useContext(CountContext);
+    const { watchList } = useContext(WatchListContext);
 
     return (
         <div className='min-h-screen flex flex-col w-[90%] max-w-7xl mx-auto bg-gray-50 text-gray-900 antialiased'>
@@ -27,10 +28,9 @@ const Layout = (props) => {
                                 to="/watchlist"
                                 className='inline-block px-5 py-2 rounded-full text-sm font-medium text-gray-500 no-underline transition-colors hover:text-gray-900 hover:bg-gray-100'
                             >
-                                WatchList
+                                WatchList <sup className='text-sm'>{ watchList.length }</sup>
                             </Link>
                         </li>
-                        <li><button onClick={()=> incrementCount()} className='border-2 border-gray p-2'>Increment Count</button></li>
                     </ul>
                 </nav>
             </header>

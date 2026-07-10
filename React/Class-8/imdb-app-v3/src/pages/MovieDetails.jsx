@@ -1,6 +1,7 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useContext } from 'react'
 import { useParams } from 'react-router'
 import axios from 'axios';
+import WatchListContext from '../context/watch-list';
 
 const TMDB_BASE_URL = import.meta.env.VITE_TMDB_BASE_URL;
 const IMDB_READ_ACCESS_TOKEN = import.meta.env.VITE_TMDB_READ_ACCESS_TOKEN;
@@ -28,6 +29,7 @@ const MovieDetails = () => {
 
     const [movie, setMovie] = useState(null);
     const [isLoading, setIsLoading] = useState(true);
+    const { addToWatchList, watchList } = useContext(WatchListContext);
 
     useEffect(() => {
         setIsLoading(true);
@@ -47,21 +49,19 @@ const MovieDetails = () => {
             })
     }, [id]);
 
-    const addToWatchList = () => {
+    const addToWatchListHandler = () => {
         if (!movie) {
             return;
         }
         const movieId = movie.id;
-        const watchlist = JSON.parse(window.localStorage.getItem('watchlist') || '[]');
-        const isAlreadyPresent = watchlist.some((movie) => movie.id === movieId);
+        const isAlreadyPresent = watchList.some((movie) => movie.id === movieId);
 
         if (isAlreadyPresent) {
             console.log('Movie already present')
             return;
         }
 
-        watchlist.push(movie);
-        window.localStorage.setItem('watchlist', JSON.stringify(watchlist));
+        addToWatchList(movie);
     }
 
     if (isLoading) {
@@ -164,7 +164,7 @@ const MovieDetails = () => {
                                 Visit Official Site
                             </a>
                         )}
-                        <button onClick={addToWatchList} className='border border-2 rounded-lg p-1 cursor-pointer ms-2'>Add To WatchList</button>
+                        <button onClick={addToWatchListHandler} className='border border-2 rounded-lg p-1 cursor-pointer ms-2'>Add To WatchList</button>
                     </div>
                 </div>
             </section>

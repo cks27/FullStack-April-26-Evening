@@ -29,6 +29,11 @@ const WatchListCard = ({ movie }) => {
             Release Date: <span className='text-gray-700'>{movie.release_date}</span>
           </p>
         )}
+        {movie.vote_average && (
+          <p className='text-xs font-medium text-gray-500'>
+            Vote Average: <span className='text-gray-700'>{movie.vote_average}</span>
+          </p>
+        )}
       </div>
     </article>
   )

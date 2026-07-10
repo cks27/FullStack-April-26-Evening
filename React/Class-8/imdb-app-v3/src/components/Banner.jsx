@@ -1,6 +1,9 @@
-import React from 'react'
+import React, {useContext} from 'react'
+import TodoContext from '../context/todo-context'
 
 const Banner = () => {
+
+  const { todos } = useContext(TodoContext);
   return (
     <section className="relative overflow-hidden rounded-2xl mb-10 px-6 py-14 sm:px-10 border border-gray-200 bg-white shadow-sm">
       <div className="absolute inset-0 bg-linear-to-br from-amber-50 via-white to-indigo-50" />
@@ -19,6 +22,7 @@ const Banner = () => {
         <p className="text-base leading-relaxed text-gray-600">
           Explore top-rated films, fresh releases, and fan favorites — all in one place.
         </p>
+        <p>{ todos.toString() }</p>
       </div>
     </section>
   )

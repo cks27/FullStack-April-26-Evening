@@ -4,12 +4,18 @@ import './index.css'
 import App from './App.jsx';
 import { BrowserRouter } from 'react-router';
 import { CountContextProvider } from './context/counter-context.jsx';
+import { WatchListContextProvider } from './context/watch-list.jsx';
+import { TodoContextProvider } from './context/todo-context.jsx';
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
     <BrowserRouter>
       <CountContextProvider>
-        <App />
+        <WatchListContextProvider>
+          <TodoContextProvider>
+            <App />
+          </TodoContextProvider>
+        </WatchListContextProvider>
       </CountContextProvider>
     </BrowserRouter>
   </StrictMode>,
