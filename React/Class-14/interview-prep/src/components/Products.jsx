@@ -8,8 +8,6 @@ const Products = () => {
     const { data, isLoading, error, sendRequest } = useHttp(fetchProducts, true);
     const { data: singleProduct, sendRequest: sendSingleProductReq } = useHttp(fetchProductById, true);
     
-    console.log(singleProduct);
-
     useEffect(() => {
         sendRequest();
         sendSingleProductReq();
