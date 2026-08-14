@@ -1,0 +1,18 @@
+{
+    "_id": "26748234hsdjh347",
+    "name": "Max",
+    "age": 25,
+    "gender": "M",
+    "addresses": [
+        {
+            "_id": "236783923678",
+            "country": "C1",
+            "zipcode": 126723
+        },
+        {
+            "_id": "2367812323678",
+            "country": "C2",
+            "zipcode": 126723
+        }
+    ]
+}
