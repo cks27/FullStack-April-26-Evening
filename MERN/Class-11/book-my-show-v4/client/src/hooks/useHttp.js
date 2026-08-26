@@ -25,6 +25,7 @@ const useHttp = (requestFunction, startWithPending = false) => {
             const responseData = await requestFunction(...requestData);
             dispatch({ type: 'SUCCESS', responseData });
         } catch (error) {
+            console.dir(error);
             dispatch({ type: 'ERROR', errorMessage: error.response?.data?.message});
         }
     };

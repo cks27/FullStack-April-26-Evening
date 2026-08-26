@@ -1,5 +1,5 @@
 import express from 'express';
-import { AuthenticationError, BadRequestError, InternalServerError } from '../core/ApiError.js';
+import { AuthenticationError, BadRequestError, InternalServerError, NotFoundError } from '../core/ApiError.js';
 import User from '../models/User.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
@@ -39,13 +39,16 @@ router.post('/login', async(req, res) => {
     }
 
     // we sign the token
-    const token = jwt.sign({ userId: user._id }, JWT_TOKEN, { expiresIn: '2d' });
+    const token = jwt.sign({ userId: user._id, role: user.role }, JWT_TOKEN, { expiresIn: '2d' });
     res.json(ApiResponse.build('success', 'Logged In Successfully', { token: token }));
 });
 
 router.get('/profile', isLoggedIn, async(req, res) => {
-    const { userId } = req;
+    const { userId } = req.user;
     const user = await User.findById(userId).select('-passwordHash');
+    if (!user) {
+        throw new NotFoundError('User do not exist!');
+    }
     res.json(ApiResponse.build('success', 'User profile', user));
 });
 

@@ -25,6 +25,9 @@ export const UserContextProvider = ({ children }) => {
         data: loginData,
     } = useHttp(login);
 
+    console.log(loginStatus);
+    console.log(loginData);
+
     useEffect(() => {
         if (loginStatus !== 'completed' || !loginData) {
             return
@@ -32,7 +35,7 @@ export const UserContextProvider = ({ children }) => {
         localStorage.setItem('token', loginData.token);
         loadProfile();
         navigate('/');
-    }, [loginStatus, loginData, navigate]);
+    }, [loginStatus, loginData]);
 
     useEffect(() => {
         loadProfile()
@@ -48,6 +51,8 @@ export const UserContextProvider = ({ children }) => {
         email: profile?.email,
         role: profile?.role,
     }
+
+    console.log(contextValue);
 
     return <UserContext.Provider value={contextValue}>{children}</UserContext.Provider>
 }

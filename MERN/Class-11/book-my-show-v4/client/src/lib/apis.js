@@ -28,3 +28,21 @@ export const signup = async (userCredentials) => {
     const response = await axios.post('http://localhost:8080/users/register', { ...userCredentials });
     return response.data.payload;
 }
+
+export const createTheatre = async (theatreDetails) => {
+    const response = await axios.post('http://localhost:8080/theatre', theatreDetails, {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+    return response.data.payload;
+}
+
+export const getTheatres = async () => {
+    const response = await axios.get('http://localhost:8080/theatres', {
+        headers: {
+            Authorization: `Bearer ${localStorage.getItem('token')}`,
+        },
+    });
+    return response.data.payload;
+}

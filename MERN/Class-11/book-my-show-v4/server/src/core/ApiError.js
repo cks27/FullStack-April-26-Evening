@@ -32,4 +32,11 @@ export class AuthenticationError extends ApiError{
     }
 }
 
+export class ForbiddenError extends ApiError{
+    constructor(message = 'Forbidden Error') {
+        super(message);
+        this.status = 403;
+    }
+}
+
 

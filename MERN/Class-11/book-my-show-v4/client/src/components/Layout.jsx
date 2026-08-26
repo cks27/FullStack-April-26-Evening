@@ -15,7 +15,7 @@ import { ToastContainer } from 'react-toastify';
 
 const Layout = ({ children }) => {
 
-  const { isLoggedIn, email } = useContext(UserContext);
+  const { isLoggedIn, email, role } = useContext(UserContext);
 
   return (
     <Box sx={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
@@ -30,23 +30,29 @@ const Layout = ({ children }) => {
           >
             Book My Show
           </Typography>
+          {isLoggedIn && (role === 'ADMIN' || role==='PARTNER') && <Button color="inherit" component={RouterLink} to="/theatres">
+            Theatres
+          </Button>}
+          {isLoggedIn && (role === 'ADMIN' || role==='PARTNER') && <Button color="inherit" component={RouterLink} to="/theatres/create">
+            Create Theatre
+          </Button>}
           {!isLoggedIn && <Button color="inherit" component={RouterLink} to="/login">
             Login
           </Button>}
           {!isLoggedIn && <Button color="inherit" component={RouterLink} to="/signup">
             Sign Up
           </Button>}
-          {isLoggedIn && <Button color="inherit" component={RouterLink} to="/signup">
+          {isLoggedIn && <Button color="inherit" component={RouterLink}>
             {email}
           </Button>}
-           {isLoggedIn && <Button color="inherit" component={RouterLink} to="/signup">
+          {isLoggedIn && <Button color="inherit" component={RouterLink}>
             Logout
           </Button>}
         </Toolbar>
       </AppBar>
 
       <Box component="main" sx={{ flexGrow: 1 }}>
-        <ToastContainer/>
+        <ToastContainer />
         {children}
       </Box>
 

@@ -5,6 +5,7 @@ import cors from 'cors';
 import userRoutes from './routes/user.js';
 import movieRoutes from './routes/movies.js';
 import healthcheckRoutes from './routes/healthcheck.js';
+import theatreRoutes from './routes/theatre.js';
 
 const app = express()
 
@@ -18,6 +19,8 @@ app.use(cors({
 app.use(healthcheckRoutes);
 app.use("/users", userRoutes);
 app.use("/movies", movieRoutes);
+app.use("/theatre", theatreRoutes);
+app.use("/theatres", theatreRoutes);
 
 // Global Error Handler
 app.use((err, req, res, next) => {

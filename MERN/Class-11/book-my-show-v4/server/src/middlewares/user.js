@@ -1,14 +1,14 @@
 import jwt from 'jsonwebtoken';
 import { ApiResponse } from '../core/ApiResponse.js';
-import { InternalServerError } from '../core/ApiError.js';
+import { InternalServerError, ForbiddenError } from '../core/ApiError.js';
 
 const JWT_TOKEN = 'weneedabettertoken';
 
 export const isLoggedIn = (req, res, next) => {
     try {
         const token = req.headers.authorization?.replace('Bearer ', "");
-        const {userId} = jwt.verify(token, JWT_TOKEN);
-        req.userId = userId;
+        const {userId, role} = jwt.verify(token, JWT_TOKEN);
+        req.user = {userId, role};
         return next();
     }
     catch (err) {
@@ -17,4 +17,12 @@ export const isLoggedIn = (req, res, next) => {
         }
         next(new InternalServerError('Something went wrong while validating token'));
     }
+}
+
+export const isAdminOrPartnerRole = (req, res, next) => {
+    const { userId, role } = req.user;
+    if (!(role === 'ADMIN' || role === 'PARTNER')) {
+        return next(new ForbiddenError('You do not have permission to create theatre'));
+    }
+    next();
 }
